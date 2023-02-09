@@ -47,7 +47,7 @@ $ttl = $options['t'] ?? $options['ttl'] ?? 1;
 foreach (range(1,$keysCount) as $i) {
 	echo "Saving key $i" . PHP_EOL;
 
-	$bigString = bin2hex(random_bytes($keySizeMb*(1024**2)));
+	$bigString = random_bytes($keySizeMb*(1024**2));
 	$redis->set('test_' . $i, $bigString, $ttl);
 }
 
