@@ -1,0 +1,27 @@
+services:
+  keydb-1:
+    image: eqalpha/keydb:x86_64_v6.3.2
+    volumes:
+      - ./config:/config
+    command: keydb-server /config/1.conf
+  keydb-2:
+    image: eqalpha/keydb:x86_64_v6.3.2
+    volumes:
+      - ./config:/config
+    command: keydb-server /config/2.conf
+  keydb-3:
+    image: eqalpha/keydb:x86_64_v6.3.2
+    volumes:
+      - ./config:/config
+    command: keydb-server /config/3.conf
+  demo:
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    volumes:
+      - ./index.php:/index.php
+    depends_on:
+      - keydb-1
+      - keydb-2
+      - keydb-3
+    command: php /index.php
